@@ -1,24 +1,8 @@
 #!/usr/bin/env bash
-#
-# katharinegillis/dnsmasq ellipsis package
 
-# The following hooks can be defined to customize behavior of your package:
-# pkg.install() {
-#     fs.link_files $PKG_PATH
-# }
+if [ ! -d "$PKG_PATH/../common" ]; then
+    echo "Dependency on katharinegillis/common, package is missing."
+    exit 1
+fi
 
-# pkg.push() {
-#     git.push
-# }
-
-# pkg.pull() {
-#     git.pull
-# }
-
-# pkg.installed() {
-#     git.status
-# }
-#
-# pkg.status() {
-#     git.diffstat
-# }
+source "$PKG_PATH/../common/common_ellipsis.sh"
