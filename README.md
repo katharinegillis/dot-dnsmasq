@@ -1,11 +1,5 @@
 # katharinegillis/dnsmasq
-Just a bunch of dotfiles.
+Installs dnsmasq as a docker container.
 
 ## Install
-Clone and symlink or install with [ellipsis][ellipsis]:
-
-```
-$ ellipsis install katharinegillis/dnsmasq
-```
-
-[ellipsis]: http://ellipsis.sh
+Installs via the [katharinegillis/dot-desktop](https://github.com/katharinegillis/dot-desktop).
