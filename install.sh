@@ -16,23 +16,19 @@ if ! grep -Fxq "# .docker local urls" "$HOME/utils/dnsmasq/dnsmasq.conf"; then
     echo "address=/.docker/127.0.0.1" >> $HOME/utils/dnsmasq/dnsmasq.conf
 fi
 
-if [ "$SYSTEM" == "linux" ]; then
-    if [ ! -d /etc/systemd/resolved.conf.d ]; then
-        sudo mkdir /etc/systemd/resolved.conf.d
-    fi
-    sudo cp "$PKG_PATH/config/noresolved.conf" /etc/systemd/resolved.conf.d/noresolved.conf
-    sudo systemctl restart systemd-resolved
-
-    sudo rm /etc/resolv.conf
-
-    echo "nameserver 127.0.0.1" | sudo tee /etc/resolv.conf
-    echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
-
-    sudo cp "$PKG_PATH/config/disableresolv.conf" /etc/NetworkManager/conf.d/disableresolv.conf
-    sudo systemctl restart NetworkManager
-else
-    echo "\e[33mPlease ensure your DNS resolver is pointed to 127.0.0.1 as preferred.\e[0m"
+if [ ! -d /etc/systemd/resolved.conf.d ]; then
+    sudo mkdir /etc/systemd/resolved.conf.d
 fi
+sudo cp "$PKG_PATH/config/noresolved.conf" /etc/systemd/resolved.conf.d/noresolved.conf
+sudo systemctl restart systemd-resolved
+
+sudo rm /etc/resolv.conf
+
+echo "nameserver 127.0.0.1" | sudo tee /etc/resolv.conf
+echo "nameserver 8.8.8.8" | sudo tee -a /etc/resolv.conf
+
+sudo cp "$PKG_PATH/config/disableresolv.conf" /etc/NetworkManager/conf.d/disableresolv.conf
+sudo systemctl restart NetworkManager
 
 cd "$HOME/utils/dnsmasq" || return
 docker-compose up -d
