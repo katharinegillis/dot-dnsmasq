@@ -31,4 +31,4 @@ sudo cp "$PKG_PATH/config/disableresolv.conf" /etc/NetworkManager/conf.d/disable
 sudo systemctl restart NetworkManager
 
 cd "$HOME/utils/dnsmasq" || return
-docker-compose up -d
+docker compose up -d
